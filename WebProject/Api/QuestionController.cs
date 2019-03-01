@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,8 +40,8 @@ namespace WebProject.Api
            var ef =   _context.Question.Add(model);
            
            _context.SaveChanges();
-                      
                      
+                  
 
             return Ok(ef);
         }
@@ -122,37 +123,16 @@ namespace WebProject.Api
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("survey/{id}")]
-        
+        [Route("survey/tolist/{id}")]
         [HttpPost]
-        public IActionResult AddQuestionToList([FromBody]QuestionToSurvey model, int id)
+        public IActionResult AddQuestionToList([FromBody]Question model, int id)
         {
           
-            //find Survey by Id
-            var survey = _context.Surveys.FirstOrDefault(x => x.SurveyId == id);
-           
-           
-            if (survey == null)
-            {
-                return NotFound();
-            }
-            var ini = new Survey();
-
-
-            //add new message to Survey
-            ini.Questions.Add(new Question()
-            {
-                QuestionTitlte = model.QuestionTitlte,
-                QuestionMessage = model.QuestionMessage
-
-            });
-
-           
-            _context.Surveys.Include(t => t.Questions).GroupBy(x => x.SurveyId == id);
-
-            _context.Surveys.AddRange(ini);
+            model.SurveyId = id;
+            _context.Question.Add(model);
             _context.SaveChanges();
-            return Ok(survey);
+            
+            return Ok(model);
         }
 
         /// <summary>
@@ -160,17 +140,10 @@ namespace WebProject.Api
         /// </summary>
         [Route("survey/{questionId}")]
         [HttpGet]
-        public IActionResult ListAllQuestionsOfSurvay(int questionId)
+        public IEnumerable ListAllQuestionsOfSurvay(int questionId)
         {
-
-            var impl = _context.Surveys.Include(p => p.Questions).ToList().Where(t => t.SurveyId == questionId);
-
-            if (impl == null)
-            {
-                return NotFound();
-            }
-
-            return new JsonResult(impl);
+            var res = _context.Surveys.Include(p => p.Questions).Where(x => x.SurveyId == questionId).ToList();
+            return res;
         }
 
         /// <summary>

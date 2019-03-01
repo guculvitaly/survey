@@ -27,10 +27,10 @@ namespace WebProject
         public void ConfigureServices(IServiceCollection services)
         {
             //localhost
-            //string connectionString = @"Server =.\SQLExpress; Database = SurveyDb; Trusted_Connection = True;";
+            string connectionString = @"Server =.\SQLExpress; Database = SurveyDb; Trusted_Connection = True;";
 
             //connection to Azure
-            string connectionString = "Server=tcp:surveyini.database.windows.net,1433;Initial Catalog=SurveyDb;Persist Security Info=False;User ID=survey44;Password=surveySur4#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            //string connectionString = "Server=tcp:surveyini.database.windows.net,1433;Initial Catalog=SurveyDb;Persist Security Info=False;User ID=survey44;Password=surveySur4#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

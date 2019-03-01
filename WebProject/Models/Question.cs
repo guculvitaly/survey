@@ -13,6 +13,7 @@ namespace WebProject.Models
 
         [Key]
         public int QuestionId { get; set; }
+        public int SurveyId { get; set; }
         public string QuestionTitlte { get; set; }
         public string QuestionMessage { get; set; }
         public string QuestionAnswer { get; set; }                
@@ -24,6 +25,11 @@ namespace WebProject.Models
 
     public class QuestionToSurvey
     {
+
+        QuestionToSurvey() {
+
+        }
+
         public string QuestionTitlte { get; set; }
         public string QuestionMessage { get; set; }
     }

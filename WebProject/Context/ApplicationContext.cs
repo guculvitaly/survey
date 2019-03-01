@@ -10,6 +10,7 @@ namespace WebProject.Context
 
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<Question> Question { get; set; }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
