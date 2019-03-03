@@ -82,14 +82,16 @@ namespace WebProject.Api
         /// <returns></returns>
         [Route("question/{id}")]
         [HttpPut]
-        public IActionResult EditQuestion(Question model)
+        public IActionResult EditQuestion([FromBody] Question model, int id)
         {
             if (model == null)
             {
                 return NotFound();
             }
 
-            if (!_context.Question.Any(x => x.QuestionId == model.QuestionId))
+            bool find = !_context.Question.Any(x => x.QuestionId == id);
+
+            if (find)
             {
                 return NotFound();
             }
@@ -132,7 +134,7 @@ namespace WebProject.Api
             _context.Question.Add(model);
             _context.SaveChanges();
             
-            return Ok(model);
+            return new JsonResult(model);
         }
 
         /// <summary>
