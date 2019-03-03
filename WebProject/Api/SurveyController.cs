@@ -109,14 +109,12 @@ namespace WebProject.Api
         /// <returns></returns>
         [Route("survey/{id}")]
         [HttpPut]
-        public IActionResult EditSurvey( Survey model)
+        public IActionResult EditSurvey([FromBody] Survey model, int id)
         {
-            if (model == null)
-            {
-                return NotFound();
-            }
+            
+            var find = !_context.Surveys.Any(x => x.SurveyId == id);
 
-            if (!_context.Surveys.Any(x => x.SurveyId == model.SurveyId))
+            if (find)
             {
                 return NotFound();
             }
