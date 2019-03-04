@@ -10,7 +10,7 @@ namespace WebProject.Models
     //[Table("Questions")]
     public class Question
     {
-
+       
         [Key]
         public int QuestionId { get; set; }
         public int? SurveyId { get; set; }

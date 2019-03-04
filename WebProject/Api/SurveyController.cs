@@ -49,7 +49,7 @@ namespace WebProject.Api
             _context.SaveChanges();
 
 
-            return Ok(survey);
+            return Json(survey);
        
         }
 
@@ -79,7 +79,7 @@ namespace WebProject.Api
             {
                 return NotFound();
             }
-            return new ObjectResult(model);
+            return Json(model);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace WebProject.Api
             }
             _context.Surveys.Remove(model);
             _context.SaveChanges();
-            return Ok(model);
+            return Json(model);
         }
 
         /// <summary>
@@ -111,16 +111,12 @@ namespace WebProject.Api
         [HttpPut]
         public IActionResult EditSurvey([FromBody] Survey model, int id)
         {
-            
-            var find = !_context.Surveys.Any(x => x.SurveyId == id);
 
-            if (find)
-            {
-                return NotFound();
-            }
+            model.SurveyId = id;
+
             _context.Update(model);
             _context.SaveChanges();
-            return Ok(model);
+            return Json(model);
         }
 
 

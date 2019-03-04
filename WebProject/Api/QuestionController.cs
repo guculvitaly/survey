@@ -43,7 +43,7 @@ namespace WebProject.Api
                      
                   
 
-            return Ok(ef);
+            return Json(ef);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace WebProject.Api
             {
                 return NotFound();
             }
-            return new ObjectResult(model);
+            return Json(model);
         }
 
         /// <summary>
@@ -88,16 +88,11 @@ namespace WebProject.Api
             {
                 return NotFound();
             }
-
-            bool find = !_context.Question.Any(x => x.QuestionId == id);
-
-            if (find)
-            {
-                return NotFound();
-            }
+            model.QuestionId = id;
+            
             _context.Update(model);
             _context.SaveChanges();
-            return Ok(model);
+            return Json(model);
         }
 
         /// <summary>
@@ -117,7 +112,7 @@ namespace WebProject.Api
             }
             _context.Question.Remove(model);
             _context.SaveChanges();
-            return Ok(model);
+            return Json(model);
         }
 
         /// <summary>
@@ -134,7 +129,7 @@ namespace WebProject.Api
             _context.Question.Add(model);
             _context.SaveChanges();
             
-            return new JsonResult(model);
+            return Json(model);
         }
 
         /// <summary>
@@ -170,7 +165,7 @@ namespace WebProject.Api
 
 
             
-            return new ObjectResult(er);
+            return Json(er);
         }
     }
 }
